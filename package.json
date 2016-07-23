@@ -1,10 +1,13 @@
 {
-  "name": "todo",
-  "version": "1.0.0",
-"private":true,
-  "dependencies": {
-    "express":"*",
-  	"mongodb": "*",
-    "moment"  : "*"
+  "name"         : "todo",
+  "version"      : "0.0.1",
+  "private"      : true,
+  "dependencies" : {
+    "express"    : "*",
+    "mongodb" 	 : "*",
+    "md5"        : "^2.0.0",
+    "gcm4node"   : "*",
+    "node-gcm"   : "*",
+	"moment"  : "*"
   }
 }

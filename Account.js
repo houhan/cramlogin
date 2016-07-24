@@ -44,7 +44,7 @@ app.get('/api/queryAccountDataPoint', function(request, response) {
 				var jsObj = jsArray[i];
 				response.type('application/json');
 				if(id == jsObj.user){
-					if(password == jsObj.password){
+					if(id == jsObj.user && password == jsObj.password){
 						response.status(200).send("succeedLogIn");
 						response.end();
 						break;

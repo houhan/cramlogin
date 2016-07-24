@@ -22,13 +22,13 @@ app.get('/api/queryAccountDataPoint', function(request, response) {
 
 	var str = request.query.value;
 	var id;
-	var passwd;
+	var password;
 	var AccountArray = new Array();
 	var AccountArray = str.split(",");
 
 
 	id = AccountArray[0];
-	passwd = AccountArray[1];
+	password = AccountArray[1];
 
 	var limit = parseInt(request.query.limit, 10) || 100;
 
@@ -44,12 +44,12 @@ app.get('/api/queryAccountDataPoint', function(request, response) {
 				var jsObj = jsArray[i];
 				response.type('application/json');
 				if(id == jsObj.user){
-					if(passwd == jsObj.password){
+					if(password == jsObj.password){
 						response.status(200).send("succeedLogIn");
 						response.end();
 						break;
 					}
-					else if(passwd != jsObj.password){
+					else if(password != jsObj.password){
 						response.status(200).send("WarnPassword");
 						response.end();
 						break;

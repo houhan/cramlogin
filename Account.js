@@ -20,11 +20,11 @@ mongodb.MongoClient.connect(uri, function(err, db) {
 app.get('/api/queryAccountDataPoint', function(request, response) {
 	var items = database.collection('login');
 
-	var str = request.query.value;
+	
 	var id;
 	var password;
 	var AccountArray = new Array();
-	var AccountArray = str.split(",");
+
 
 
 	id = AccountArray[0];

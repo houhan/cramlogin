@@ -41,7 +41,7 @@ app.get('/api/creatFirst', function(request, response) {
 		passwd : AccountArray[4]
 	};
 	
-	var items = database.collection('dbforaccount');
+	var items = database.collection('login');
 
 	items.insert(insert, function(err, result) {
 					if (err) {
@@ -81,7 +81,7 @@ app.get('/api/createDataPoint', function(request, response) {
 		passwd : AccountArray[4]
 	};
 	
-	var items = database.collection('dbforaccount');
+	var items = database.collection('login');
 
 	items.find().toArray(function (err, docs) {
 		var jsArray = new Array();
@@ -112,7 +112,7 @@ app.get('/api/createDataPoint', function(request, response) {
 });
 
 app.get('/api/queryAccountDataPoint', function(request, response) {
-	var items = database.collection('dbforaccount');
+	var items = database.collection('login');
 
 	var str = request.query.value;
 	var id;
@@ -161,7 +161,7 @@ app.get('/api/queryAccountDataPoint', function(request, response) {
 });
 
 app.get('/api/queryTelDataPoint', function(request, response) {
-	var items = database.collection('dbforaccount');
+	var items = database.collection('login');
 
 	var tel = request.query.tel;
 
@@ -195,7 +195,7 @@ app.get('/api/queryTelDataPoint', function(request, response) {
 });
 
 app.get('/api/queryNameDataPoint', function(request, response) {
-	var items = database.collection('dbforaccount');
+	var items = database.collection('login');
 
 	var tel = request.query.tel;
 
@@ -224,7 +224,7 @@ app.get('/api/queryNameDataPoint', function(request, response) {
 });
 
 app.get('/api/queryAccountInfo', function(request, response) {
-	var items = database.collection('dbforaccount');
+	var items = database.collection('login');
 
 	var tel = request.query.tel;
 
@@ -254,7 +254,7 @@ app.get('/api/queryAccountInfo', function(request, response) {
 });
 
 app.get('/api/queryMemberInfo', function(request, response) {
-	var items = database.collection('dbforaccount');
+	var items = database.collection('login');
 
 	var tel = request.query.tel;
 
@@ -284,7 +284,7 @@ app.get('/api/queryMemberInfo', function(request, response) {
 });
 
 app.get('/api/insertRegId', function(request, response) {
-	var items = database.collection('dbforaccount');
+	var items = database.collection('login');
 
 	var str = request.query.value;
 	var Ary = new Array();
@@ -321,7 +321,7 @@ app.get('/api/insertRegId', function(request, response) {
 });
 
 app.get('/api/insertGpsDistance', function(request, response) {
-	var items = database.collection('dbforaccount');
+	var items = database.collection('login');
 
 	var str = request.query.value;
 	var Ary = new Array();
@@ -360,7 +360,7 @@ app.get('/api/addOrderInfo', function(request, response) {
 		dining : orderArray[8]
 	};
 		
-	var items = database.collection('dbforclientorder');
+	var items = database.collection('login');
 	items.insert(insert, function(err, result) {
 		if (err) {
 			__sendErrorResponse(response, 406, err);
@@ -394,7 +394,7 @@ app.get('/api/modifyOrderInfo', function(request, response) { // replace early d
 		dining : orderArray[8]
 	};
 		
-	var items = database.collection('dbforclientorder');
+	var items = database.collection('login');
 
 	items.remove({tel:orderArray[0]});
 
@@ -415,7 +415,7 @@ app.get('/api/queryOrderData', function(request, response) {
 		return;
 	}
 
-	var items = database.collection('dbforclientorder');
+	var items = database.collection('login');
 
 	var str = request.query.value;
 
@@ -432,7 +432,7 @@ app.get('/api/queryOrderData', function(request, response) {
 });
 
 app.get('/api/queryPersonalOrderData', function(request, response) {
-	var items = database.collection('dbforclientorder');
+	var items = database.collection('login');
 	var tel = request.query.tel;
 
 	items.find().toArray(function (err, docs) {
@@ -466,7 +466,7 @@ app.get('/api/queryPersonalOrderData', function(request, response) {
 });
 
 app.get('/api/changeDining', function(request, response) {
-	var items = database.collection('dbforclientorder');
+	var items = database.collection('login');
 	var tel = request.query.tel;
 
 	items.find().toArray(function (err, docs) {

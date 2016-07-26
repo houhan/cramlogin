@@ -37,7 +37,7 @@ app.get('/api/creatFirst', function(request, response) {
 		passwd : AccountArray[2]
 	};
 	
-	var items = database.collection('dbforaccount');
+	var items = database.collection('login');
 
 	items.insert(insert, function(err, result) {
 					if (err) {
@@ -72,7 +72,7 @@ app.get('/api/createDataPoint', function(request, response) {
 		passwd : AccountArray[2]
 	};
 	
-	var items = database.collection('dbforaccount');
+	var items = database.collection('login');
 
 	items.find().toArray(function (err, docs) {
 		var jsArray = new Array();
@@ -103,7 +103,7 @@ app.get('/api/createDataPoint', function(request, response) {
 });
 
 app.get('/api/queryAccountDataPoint', function(request, response) {
-	var items = database.collection('dbforaccount');
+	var items = database.collection('login');
 
 	var str = request.query.value;
 	var id;

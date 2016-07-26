@@ -81,12 +81,12 @@ app.get('/api/createDataPoint', function(request, response) {
 			var jsObj = Object();
 			var jsObj = jsArray[i];
 			response.type('application/json');
-			if(jsObj.tel == tel){
+			if(jsObj.a == a){
 				response.status(200).send("此帳號已註冊!!");
 				response.end();
 				break;
 			}
-			else if(jsObj.tel != tel && i == jsArray.length -1){
+			else if(jsObj.a != a && i == jsArray.length -1){
 				items.insert(insert, function(err, result) {
 					if (err) {
 					__sendErrorResponse(response, 406, err);
@@ -128,7 +128,7 @@ app.get('/api/queryAccountDataPoint', function(request, response) {
 				var jsObj = Object();
 				var jsObj = jsArray[i];
 				response.type('application/json');
-				if(id == jsObj.tel){
+				if(id == jsObj.a){
 					if(passwd == jsObj.passwd){
 						response.status(200).send("succeedLogIn");
 						response.end();
@@ -140,7 +140,7 @@ app.get('/api/queryAccountDataPoint', function(request, response) {
 						break;
 					}
 				}
-				else if(id != jsObj.tel && i == jsArray.length -1){
+				else if(id != jsObj.a && i == jsArray.length -1){
 					response.status(200).send("WarnId");
 					response.end();
 				}
@@ -177,8 +177,8 @@ app.get('/api/queryAccountDataPoint', function(request, response) {
 				var jsObj = Object();
 				var jsObj = jsArray[i];
 				response.type('application/json');
-				if(id == jsObj.user){
-					if(id == jsObj.user && password == jsObj.password){
+				if(id == jsObj.a){
+					if(id == jsObj.a && password == jsObj.password){
 						response.status(200).send("succeedLogIn");
 						response.end();
 						break;
@@ -189,7 +189,7 @@ app.get('/api/queryAccountDataPoint', function(request, response) {
 						break;
 					}
 				}
-				else if(id != jsObj.user && i == jsArray.length -1){
+				else if(id != jsObj.a && i == jsArray.length -1){
 					response.status(200).send("WarnId");
 					response.end();
 				}

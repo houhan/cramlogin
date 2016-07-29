@@ -5,7 +5,7 @@ var app = express();
 var md5 = require('md5');
 var gcm = require('node-gcm');
 
-var mongodbURL = 'mongodb://bob840312:bob0932233875@ds023624.mlab.com:23624/cram';
+var mongodbURL = 'mongodb://houhan:ag460360@ds029745.mlab.com:29745/dbforaccount';
 
 var myDB;
 mongodb.MongoClient.connect(mongodbURL, function(err, db) {
@@ -23,7 +23,6 @@ app.get('/api/insert', function(request, response) {
 	var item = {
 		user : request.query.user,
 		password : md5(request.query.password),
-		desc : request.query.desc
 	}
 	var collection = myDB.collection('login');
 	collection.insert(item, function(err, result) {
@@ -39,9 +38,13 @@ app.get('/api/insert', function(request, response) {
 
 //回傳密碼比對，若成功登入將UID、名稱紀錄起來
 app.get('/api/query', function(request, response) {
-
+	var item = {
+	user : request.query.user,
+	password : md5(request.query.password),
+	}
+	
 	var collection = myDB.collection('login');
-	collection.find({user : request.query.user}, {password: 1, _id: 1, desc: 1}).toArray(function(err, docs) {
+	collection.find({user : request.query.user}, {password: 1, _id: 1}).toArray(function(err, docs) {
 		if (err) {
 			response.status(406).send(err).end();
 		} else {

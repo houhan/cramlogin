@@ -2,7 +2,7 @@ var express = require('express');
 var mongodb = require('mongodb');
 var ObjectID = require('mongodb').ObjectID;
 var app = express();
-
+var md5 = require('md5');
 var gcm = require('node-gcm');
 
 var mongodbURL = 'mongodb://houhan:ag460360@ds029745.mlab.com:29745/dbforaccount';
@@ -22,7 +22,8 @@ mongodb.MongoClient.connect(mongodbURL, function(err, db) {
 app.get('/api/insert', function(request, response) {
 	var item = {
 		user : request.query.user,
-		password : request.query.password,
+		name : request.query.name,
+		password : md5(request.query.password),
 	}
 	var collection = myDB.collection('login');
 	collection.insert(item, function(err, result) {
@@ -40,7 +41,8 @@ app.get('/api/insert', function(request, response) {
 app.get('/api/query', function(request, response) {
 	var item = {
 	user : request.query.user,
-	password : request.query.password,
+	name : request.query.name,
+	password : md5(request.query.password),
 	}
 	
 	var collection = myDB.collection('login');

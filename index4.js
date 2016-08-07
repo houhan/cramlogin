@@ -101,38 +101,6 @@ app.get('/api/checkaccount', function(request, response) {
 });
 
 
-//新增假單
-app.get('/api/insertqk', function(request, response) {
-	var item = {
-		name : request.query.name,
-		date : request.query.date,
-		reson : request.query.reson,
-		PS : request.query.PS,
-	}
-	var collection = myDB.collection('qk');
-	collection.insert(item, function(err, result) {
-		if (err) {
-			response.status(406).send(err).end();
-		}else {
-			response.type('application/json');
-			response.status(200).send(result).end();
-		}
-	});
-});
-
-
-app.get('/api/queryqk', function(request, response) {
-
-	var collection = myDB.collection('qk');
-	collection.find({}).toArray(function(err, docs) {
-		if (err) {
-			response.status(406).send(err).end();
-		} else {
-			response.type('application/json');
-			response.status(200).send(docs).end();
-		}
-	});
-});
 
 
 

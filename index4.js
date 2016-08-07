@@ -101,7 +101,20 @@ app.get('/api/checkaccount', function(request, response) {
 });
 
 
+//公佈欄
+app.get('/api/querybillboard', function(request, response) {
 
+
+	var collection = myDB.collection('billboard');
+	collection.find({}).toArray(function(err, docs) {
+		if (err) {
+			response.status(406).send(err).end();
+		} else {
+			response.type('application/json');
+			response.status(200).send(docs).end();
+		}
+	});
+});
 
 
 

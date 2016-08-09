@@ -101,12 +101,31 @@ app.get('/api/checkaccount', function(request, response) {
 });
 
 
-//公佈欄
+//公佈欄顯示
 app.get('/api/querybillboard', function(request, response) {
 
 
 	var collection = myDB.collection('billboard');
 	collection.find({}).toArray(function(err, docs) {
+		if (err) {
+			response.status(406).send(err).end();
+		} else {
+			response.type('application/json');
+			response.status(200).send(docs).end();
+		}
+	});
+});
+
+//公佈欄刪除
+app.get('/api/deletebillboard', function(request, response) {
+
+	var item = {
+	date: request.query.date,
+	title: request.query.title,
+	content: request.query.content
+	}
+	var collection = myDB.collection('billboard');
+	collection.find({date: request.query.date,title: request.query.title,content: request.query.content} , {_id: 1}).toArray(function(err, docs) {
 		if (err) {
 			response.status(406).send(err).end();
 		} else {

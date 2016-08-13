@@ -116,6 +116,25 @@ app.get('/api/querybillboard', function(request, response) {
 	});
 });
 
+//公佈欄新增
+app.get('/api/insertbb', function(request, response) {
+	var item = {
+		date : request.query.date,
+		title : request.query.title,
+		content : request.query.content,
+	}
+	var collection = myDB.collection('bilboard');
+	collection.insert(item, function(err, result) {
+		if (err) {
+			response.status(406).send(err).end();
+		}else {
+			response.type('application/json');
+			response.status(200).send(result).end();
+		}
+	});
+});
+
+
 //公佈欄刪除
 app.get('/api/deletebillboard', function(request, response) {
 

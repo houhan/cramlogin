@@ -174,10 +174,8 @@ app.get('/api/delete2', function(request, response) {
 //新增預計抵達時間
 app.get('/api/inserttime', function(request, response) {
 	var item = {
-		arrive_time : request.query.arrive_time,
-	estimate_time : request.query.estimate_time,
-	distance : request.query.distance,
-	spent : request.query.spent,
+	hours : request.query.hours,
+	min : request.query.min,
 	}
 	var collection = myDB.collection('arrivetime');
 	collection.insert(item, function(err, result) {
@@ -193,10 +191,8 @@ app.get('/api/inserttime', function(request, response) {
 //顯示預計抵達
 app.get('/api/querytime', function(request, response) {
 	var item = {
-	arrive_time : request.query.arrive_time,
-	estimate_time : request.query.estimate_time,
-	distance : request.query.distance,
-	spent : request.query.spent,
+	hours : request.query.hours,
+	min : request.query.min,
 	}
 	
 	var collection = myDB.collection('arrivetime');

@@ -123,7 +123,7 @@ app.get('/api/insertbb', function(request, response) {
 		title : request.query.title,
 		content : request.query.content,
 	}
-	var collection = myDB.collection('bilboard');
+	var collection = myDB.collection('billboard');
 	collection.insert(item, function(err, result) {
 		if (err) {
 			response.status(406).send(err).end();

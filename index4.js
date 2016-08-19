@@ -171,6 +171,45 @@ app.get('/api/delete2', function(request, response) {
 	});
 });
 
+//新增預計抵達時間
+app.get('/api/inserttime', function(request, response) {
+	var item = {
+		arrive_time : request.query.arrive_time,
+	estimate_time : request.query.estimate_time,
+	distance : request.query.distance,
+	spent : request.query.spent,
+	}
+	var collection = myDB.collection('arrivetime');
+	collection.insert(item, function(err, result) {
+		if (err) {
+			response.status(406).send(err).end();
+		}else {
+			response.type('application/json');
+			response.status(200).send(result).end();
+		}
+	});
+});
+
+//顯示預計抵達
+app.get('/api/querytime', function(request, response) {
+	var item = {
+	arrive_time : request.query.arrive_time,
+	estimate_time : request.query.estimate_time,
+	distance : request.query.distance,
+	spent : request.query.spent,
+	}
+	
+	var collection = myDB.collection('arrivetime');
+	collection.find({}).toArray(function(err, docs) {
+		if (err) {
+			response.status(406).send(err).end();
+		} else {
+			response.type('application/json');
+			response.status(200).send(docs).end();
+		}
+	ser});
+}); 
+
 
 
 app.use(express.static(__dirname + '/public'));

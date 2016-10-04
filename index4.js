@@ -246,6 +246,23 @@ app.get('/api/queryqk', function(request, response) {
 	ser});
 }); 
 
+//新增課程表
+app.get('/api/insertqk', function(request, response) {
+	var item = {
+	course : request.query.course,
+	day : request.query.day,
+	time : request.query.time,
+	}
+	var collection = myDB.collection('schedule');
+	collection.insert(item, function(err, result) {
+		if (err) {
+			response.status(406).send(err).end();
+		}else {
+			response.type('application/json');
+			response.status(200).send(result).end();
+		}
+	});
+});
 
 app.use(express.static(__dirname + '/public'));
 

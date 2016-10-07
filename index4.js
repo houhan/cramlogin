@@ -264,6 +264,23 @@ app.get('/api/insertqk', function(request, response) {
 	});
 });
 
+//名字顯示
+app.get('/api/queryname', function(request, response) {
+	var item = {
+	name : request.query.name,
+	}
+
+	var collection = myDB.collection('login');
+	collection.find({}).toArray(function(err, docs) {
+		if (err) {
+			response.status(406).send(err).end();
+		} else {
+			response.type('application/json');
+			response.status(200).send(docs).end();
+		}
+	});
+});
+
 app.use(express.static(__dirname + '/public'));
 
 app.use(function(req, res, next) {

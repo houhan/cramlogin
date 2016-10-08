@@ -264,8 +264,10 @@ app.get('/api/insertqk', function(request, response) {
 	});
 });
 
+
+
 //名字顯示
-app.get('/api/queryname', function(request, response) {
+app.get('/api/querystudentname', function(request, response) {
 	var item = {
 	name : request.query.name,
 	}

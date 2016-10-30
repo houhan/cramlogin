@@ -88,7 +88,17 @@ app.get('/api/checkaccount', function(request, response) {
 			response.status(200).send(st).end();
 			
              }
-           
+			 
+             if(jsObj.user == teacher)
+             { 
+
+            st = [{
+            	user : "2"
+            }]
+            response.type('application/json');
+			response.status(200).send(st).end();
+			
+             }
              else{
              	st2 = [{
              		user : "1"

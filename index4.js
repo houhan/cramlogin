@@ -77,12 +77,19 @@ app.get('/api/checkaccount', function(request, response) {
 					docs2 += jsObj.user;
                 }
                 }  
- 
              if(docs2.length == 0)
              { 
-
+            for(var i = 0; i < jsArray.length; i++){
+                var jsObj = Object();
+                var jsObj = jsArray[i];
+            if(jsObj.user == "teacher"){
+					docs2 += jsObj.user;
+                }
+                }  
+             if(docs2.length == 0)
+             {
             st = [{
-            	user : "0"
+            	user : "2"
             }]
             response.type('application/json');
 			response.status(200).send(st).end();

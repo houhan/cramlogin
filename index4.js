@@ -134,6 +134,19 @@ app.get('/api/insertbb', function(request, response) {
 	});
 });
 
+//公佈欄刪除 BYmyself
+app.get('/api/deletebill', function(request, response) {
+
+	var collection = myDB.collection('billboard');
+	collection.remove({}).toArray(function(err, docs) {
+		if (err) {
+			response.status(406).send(err).end();
+		} else {
+			response.type('application/json');
+			response.status(200).send(docs).end();
+		}
+	});
+});
 
 //公佈欄刪除
 app.get('/api/deletebillboard', function(request, response) {
@@ -282,6 +295,7 @@ app.get('/api/querystudentname', function(request, response) {
 		}
 	});
 });
+
 
 app.use(express.static(__dirname + '/public'));
 

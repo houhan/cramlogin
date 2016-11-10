@@ -101,6 +101,53 @@ app.get('/api/checkaccount', function(request, response) {
 });
 
 
+app.get('/api/queryAccountDataPoint', function(request, response) {
+	var items = database.collection('login');
+	var str = request.query.value;
+	var user;
+	var password ;
+	var AccountArray = new Array();
+	var AccountArray = str.split(",");
+
+	user = AccountArray[0];
+	password  = AccountArray[1];
+
+	var limit = parseInt(request.query.limit, 10) || 100;
+
+	items.find().sort({$natural: -1}).limit(limit).toArray(function (err, docs) {
+		if (err) {
+			console.log(err);
+			__sendErrorResponse(response, 406, err);
+		} else {
+			var jsArray = new Array();
+			var jsArray = docs;
+			for(var i = 0; i < jsArray.length; i++){
+				var jsObj = Object();
+				var jsObj = jsArray[i];
+				response.type('application/json');
+				if(user == jsObj.user){
+					if(password  == jsObj.password ){
+						response.status(200).send("succeedLogIn");
+						response.end();
+						break;
+					}
+					else if(password  != jsObj.password ){
+						response.status(200).send("WarnPassword");
+						response.end();
+						break;
+					}
+				}
+				else if(user != jsObj.user && i == jsArray.length -1){
+					response.status(200).send("WarnId");
+					response.end();
+				}
+
+			}
+
+		}
+	});
+});
+
 //公佈欄顯示
 app.get('/api/querybillboard', function(request, response) {
 
@@ -146,6 +193,32 @@ app.get('/api/deletebill', function(request, response) {
 			response.status(200).send(docs).end();
 		}
 	});
+});
+
+app.get('/api/deletebill2', function(request, response) {
+	var items = database.collection('billboard');
+	var date = request.query.date;
+	var title = request.query.title;
+	var content = request.query.content;
+
+	items.remove(
+		{
+			'billboard' : date,
+
+		},
+		{
+			'billboard' :{
+				'id' : id,
+				'date' : date,
+				'title' : title,
+				'content' : content
+			}
+		}
+	);
+
+	response.write('remove_complete');
+	response.end();
+	
 });
 
 //公佈欄刪除

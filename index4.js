@@ -104,12 +104,12 @@ app.get('/api/checkaccount', function(request, response) {
 app.get('/api/queryAccountDataPoint', function(request, response) {
 	var items = database.collection('login');
 	var str = request.query.value;
-	var user;
+	var id;
 	var password ;
 	var AccountArray = new Array();
 	var AccountArray = str.split(",");
 
-	user = AccountArray[0];
+	id = AccountArray[0];
 	password  = AccountArray[1];
 
 	var limit = parseInt(request.query.limit, 10) || 100;
@@ -125,7 +125,7 @@ app.get('/api/queryAccountDataPoint', function(request, response) {
 				var jsObj = Object();
 				var jsObj = jsArray[i];
 				response.type('application/json');
-				if(user == jsObj.user){
+				if(id == jsObj.user){
 					if(password  == jsObj.password ){
 						response.status(200).send("succeedLogIn");
 						response.end();
@@ -137,7 +137,7 @@ app.get('/api/queryAccountDataPoint', function(request, response) {
 						break;
 					}
 				}
-				else if(user != jsObj.user && i == jsArray.length -1){
+				else if(id != jsObj.user && i == jsArray.length -1){
 					response.status(200).send("WarnId");
 					response.end();
 				}

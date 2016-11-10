@@ -36,6 +36,63 @@ app.get('/api/insert', function(request, response) {
 	});
 });
 
+//將帳號、密碼、名稱存入login資料庫
+app.get('/api/insert', function(request, response) {
+	var item = {
+		user : request.query.user,
+		name : request.query.name,
+		password : md5(request.query.password),
+		minor : request.query.minor,
+	}
+	var collection = myDB.collection('login');
+	collection.insert(item, function(err, result) {
+		if (err) {
+			response.status(406).send(err).end();
+		}else {
+			response.type('application/json');
+			response.status(200).send(result).end();
+		}
+	});
+});
+
+//更新RegId
+app.get('/api/insertRegId', function(request, response) {
+	var items = database.collection('dbforaccount');
+
+	var str = request.query.value;
+	var Ary = new Array();
+	var Ary= str.split(",");
+
+	var user = Ary[0];
+	var regid = Ary[1];
+	items.update( { user:user }, { '$set': { regid:regid } });
+	response.type('application/json');
+	response.status(200).send("Succeed Save"); 
+	response.end();
+
+	/*items.find().toArray(function (err, docs) {
+		if (err) {
+			console.log(err);
+			__sendErrorResponse(response, 406, err);
+		} else {
+			var jsArray = new Array();
+			var jsArray = docs;
+			
+			for(var i = 0; i < jsArray.length; i++){
+				var jsObj = Object();
+				var jsObj = jsArray[i];
+				response.type('application/json');
+				if(id == jsObj.tel){
+					
+					response.status(200).send("Succeed Save");
+					response.end();
+				}
+
+			}
+
+		}
+	});*/
+});
 
 //回傳密碼比對，若成功登入將UID、名稱紀錄起來
 app.get('/api/query', function(request, response) {

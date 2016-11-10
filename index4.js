@@ -18,12 +18,15 @@ mongodb.MongoClient.connect(mongodbURL, function(err, db) {
 });
 
 
+
+
 //將帳號、密碼、名稱存入login資料庫
 app.get('/api/insert', function(request, response) {
 	var item = {
 		user : request.query.user,
 		name : request.query.name,
 		password : md5(request.query.password),
+		minor : request.query.minor,
 	}
 	var collection = myDB.collection('login');
 	collection.insert(item, function(err, result) {
@@ -37,12 +40,11 @@ app.get('/api/insert', function(request, response) {
 });
 
 //將帳號、密碼、名稱存入login資料庫
-app.get('/api/insert', function(request, response) {
+app.get('/api/insert2', function(request, response) {
 	var item = {
 		user : request.query.user,
 		name : request.query.name,
 		password : md5(request.query.password),
-		minor : request.query.minor,
 	}
 	var collection = myDB.collection('login');
 	collection.insert(item, function(err, result) {

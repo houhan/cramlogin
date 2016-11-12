@@ -319,8 +319,8 @@ app.get('/api/delete2', function(request, response) {
 //新增預計抵達時間
 app.get('/api/inserttime', function(request, response) {
 	var item = {
-	hours : request.query.hours,
-	min : request.query.min,
+	time : request.query.time,
+	dis : request.query.dis,
 	}
 	var collection = myDB.collection('arrivetime');
 	collection.insert(item, function(err, result) {

@@ -319,6 +319,7 @@ app.get('/api/delete2', function(request, response) {
 //新增預計抵達時間
 app.get('/api/inserttime', function(request, response) {
 	var item = {
+	user : request.query.user,
 	time : request.query.time,
 	dis : request.query.dis,
 	}

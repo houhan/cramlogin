@@ -101,6 +101,7 @@ app.get('/api/query', function(request, response) {
 	var item = {
 	user : request.query.user,
 	name : request.query.name,
+	minor : request.query.minor,
 	password : md5(request.query.password),
 	}
 	
@@ -165,11 +166,13 @@ app.get('/api/queryAccountDataPoint', function(request, response) {
 	var str = request.query.value;
 	var id;
 	var password ;
+	var minor ;
 	var AccountArray = new Array();
 	var AccountArray = str.split(",");
 
 	id = AccountArray[0];
 	password  = AccountArray[1];
+	minor = AccountArray[2];
 
 	var limit = parseInt(request.query.limit, 10) || 100;
 

@@ -106,7 +106,7 @@ app.get('/api/query', function(request, response) {
 	}
 	
 	var collection = myDB.collection('login');
-	collection.find({user : request.query.user}, {password: 1, _id: 1,name:1}).toArray(function(err, docs) {
+	collection.find({user : request.query.user}, {password: 1, _id: 1, name:1, minor:1}).toArray(function(err, docs) {
 		if (err) {
 			response.status(406).send(err).end();
 		} else {

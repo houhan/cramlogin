@@ -167,12 +167,14 @@ app.get('/api/queryAccountDataPoint', function(request, response) {
 	var id;
 	var password ;
 	var minor ;
+	var name ;
 	var AccountArray = new Array();
 	var AccountArray = str.split(",");
 
 	id = AccountArray[0];
 	password  = AccountArray[1];
 	minor = AccountArray[2];
+	name = AccoutArray[3];
 
 	var limit = parseInt(request.query.limit, 10) || 100;
 

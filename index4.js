@@ -59,15 +59,12 @@ app.get('/api/insert2', function(request, response) {
 
 //更新RegId
 app.get('/api/insertRegId', function(request, response) {
-		var items = database.collection('login');
+	var items = database.collection('login');
 
-	var str = request.query.value;
-	var Ary = new Array();
-	var Ary= str.split(",");
-
-	var id = Ary[0];
-	var regid = Ary[1];
-	items.update( { user:user }, { $set: { regid:regid } },{upsert: true});
+	var user = request.query.user;
+	var regid = request.query.regid;
+	console.log('testLog');
+	items.update( { 'user':user }, { $set: { 'regid':regid } });
 	response.type('application/json');
 	response.status(200).send("Succeed Save"); 
 	response.end();

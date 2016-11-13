@@ -67,7 +67,9 @@ app.get('/api/insertRegId', function(request, response) {
 
 	var user = Ary[0];
 	var regid = Ary[1];
-	items.update( { user:user }, { '$set': { regid:regid } });
+	items.update( { user:user }, { $set: { regid:regid } },{
+     upsert: true
+   });
 	response.type('application/json');
 	response.status(200).send("Succeed Save"); 
 	response.end();

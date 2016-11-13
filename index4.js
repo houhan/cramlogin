@@ -60,7 +60,6 @@ app.get('/api/insert2', function(request, response) {
 //更新RegId
 app.get('/api/insertRegId', function(request, response) {
 	var items = myDB.collection('login');
-
 	var user = request.query.user;
 	var regid = request.query.regid;
 	console.log('testLog');

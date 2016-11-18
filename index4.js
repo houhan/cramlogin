@@ -361,6 +361,80 @@ app.get('/api/querystudentname', function(request, response) {
 	});
 });
 
+//FCM推播
+app.get('/api/sendFCM',function(request,response,next){
+	var from = request.query.from;
+	var to = request.query.to;
+	var message = request.query.message;	
+	var point1 = request.query.point1;
+	var lat1 = request.query.lat1;
+	var lng1 = request.query.lng1;
+	var point2 = request.query.point2;
+	var lat2 = request.query.lat2;
+	var lng2 = request.query.lng2;
+
+	//type: message(一般訊息) / team_invite(車隊跟車邀請)
+	var type = request.query.type;
+	var request = require('request');
+
+	function sendMessageToUser(deviceId) {
+	  	request({
+		    url: 'https://fcm.googleapis.com/fcm/send',
+		    method: 'POST',
+		    headers: {
+		        'Content-Type' : ' application/json',
+		        'Authorization': 'key=AIzaSyDn9S-x9r31Ub3ns_VZnBBEBBvggdH1CoI'
+		    },
+		    body: JSON.stringify(
+		        {
+				    'to': deviceId ,
+				    'notification': {
+					    'sound': 'default',
+					    'title': 'CRAM',
+					    'body': 'message'
+					},
+					'data':{
+						    "subject": '智慧安心班',
+							"message": '小孩已抵達安親班囉'
+					}
+					/*
+					'data':{
+						'send_from' : from,
+						'send_type' : type,
+						'first_point' :{
+							'point_name' : point1,
+							'point_lat' : lat1,
+							'point_lng' : lng1
+						},
+						'second_point' :{
+							'point_name' : point2,
+							'point_lat' : lat2,
+							'point_lng' : lng2
+						}
+						
+					},
+				    'priority' : 'high'
+					*/
+				}
+		    )}, function(error, response, body) {
+			    if (error) { 
+			        console.error(error, response, body); 
+			    }else if (response.statusCode >= 400) { 
+			        console.error('HTTP Error: '+response.statusCode+' - '+response.statusMessage+'\n'+body); 
+			    }else {
+			        console.log('Done!');
+			    }
+			}  
+		);	
+	};
+
+	sendMessageToUser(to);
+	
+
+	response.write('Done!');
+	response.end();		    	
+		    	
+});	
 
 app.use(express.static(__dirname + '/public'));
 

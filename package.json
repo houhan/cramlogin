@@ -9,5 +9,9 @@
     "gcm4node"   : "*",
     "node-gcm"   : "*",
 	"moment"  : "*"
+	"body-parser": "^1.15.2",
+    "fcm": "^1.0.3",
+    "fcm-node": "^1.0.15",
+    "node-fcm": "^1.0.3"
   }
 }

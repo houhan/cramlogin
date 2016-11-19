@@ -361,7 +361,61 @@ app.get('/api/querystudentname', function(request, response) {
 	});
 });
 
+//FCM
+var express = require('express');
+var FCM = require('fcm-node');
+var fcm = new FCM('AIzaSyDn9S-x9r31Ub3ns_VZnBBEBBvggdH1CoI');
+var bodyParser = require('body-parser')
 
+var app = express();
+
+app.use( bodyParser.json() );
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
+
+
+/*
+	post example:
+	body type application/json
+	content:
+{
+	"tokens":["fGJju8A-lxY:APA91bFjjebc6PqkBT_UJx8xj7QQgJ5CJGStm4ZcRAH8OqwXVy3Yf3IlbIdutB35M3Fhj-t-Zmwolqv2k_YWX83O50Kzqxd9Gca7gQ6MhlRgPM4cehSmBgFyQeWWv3139qbfb57SxU-m",
+	"fGJju8A-lxY:APA91bFjjebc6PqkBT_UJx8xj7QQgJ5CJGStm4ZcRAH8OqwXVy3Yf3IlbIdutB35M3Fhj-t-Zmwolqv2k_YWX83O50Kzqxd9Gca7gQ6MhlRgPM4cehSmBgFyQeWWv3139qbfb57SxU-m"],
+	"message": "This is a message",
+	"title": "這是標題"
+}*/
+app.post('/send', function(req, res) {
+
+	var tokens = req.body.tokens;
+	var msg = req.body.message;
+	var title = req.body.title;
+
+	console.log(tokens);
+
+
+	//console.log('token ' + req.params.token);
+
+	var message = {
+	    registration_ids: tokens, // required
+	    data: {
+	    	subject: title,
+	    	message: msg
+		}
+	};
+
+	fcm.send(message, function(err, messageId){
+	    if (err) {
+	        console.log("Something has gone wrong!");
+	        console.error(err);
+	        res.status(500).send(JSON.stringify(err));
+	    } else {
+	        console.log("Sent with message ID: ", messageId);
+	        res.status(200).send('OK');
+	    }
+	});
+
+})
 
 app.use(express.static(__dirname + '/public'));
 

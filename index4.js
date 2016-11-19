@@ -64,7 +64,6 @@ app.get('/api/insertRegId', function(request, response) {
 	var items = myDB.collection('login');
 	var user = request.query.user;
 	var regid = request.query.regid;
-	console.log('testLog');
 	items.update( { 'user':user }, { $set: { 'regid':regid } });
 	response.type('application/json');
 	response.status(200).send("Succeed Save"); 
@@ -367,7 +366,6 @@ var FCM = require('fcm-node');
 var fcm = new FCM('AIzaSyDn9S-x9r31Ub3ns_VZnBBEBBvggdH1CoI');
 var bodyParser = require('body-parser')
 
-var app = express();
 
 app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
@@ -416,7 +414,7 @@ app.post('/send', function(req, res) {
 	});
 
 })
-
+console.log('testLog');
 app.use(express.static(__dirname + '/public'));
 
 app.use(function(req, res, next) {

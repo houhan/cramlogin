@@ -8,7 +8,7 @@
     "express"    : "*",
     "mongodb" 	 : "*",
     "md5"        : "^2.0.0",
-	"moment"  : "*"
+	"moment"  : "*",
 	"body-parser": "*",
     "fcm": "*",
     "fcm-node": "*",

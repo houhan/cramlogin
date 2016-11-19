@@ -5,6 +5,11 @@ var app = express();
 var md5 = require('md5');
 var gcm = require('node-gcm');
 
+var express = require('express');
+var FCM = require('fcm-node');
+var fcm = new FCM('AIzaSyDn9S-x9r31Ub3ns_VZnBBEBBvggdH1CoI');
+var bodyParser = require('body-parser')
+
 var mongodbURL = 'mongodb://houhan:ag460360@ds029745.mlab.com:29745/dbforaccount';
 
 var myDB;
@@ -361,10 +366,7 @@ app.get('/api/querystudentname', function(request, response) {
 });
 
 //FCM
-var express = require('express');
-var FCM = require('fcm-node');
-var fcm = new FCM('AIzaSyDn9S-x9r31Ub3ns_VZnBBEBBvggdH1CoI');
-var bodyParser = require('body-parser')
+
 
 
 app.use( bodyParser.json() );

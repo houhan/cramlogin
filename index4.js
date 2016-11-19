@@ -3,9 +3,7 @@ var mongodb = require('mongodb');
 var ObjectID = require('mongodb').ObjectID;
 var app = express();
 var md5 = require('md5');
-var gcm = require('node-gcm');
 
-var express = require('express');
 var FCM = require('fcm-node');
 var fcm = new FCM('AIzaSyDn9S-x9r31Ub3ns_VZnBBEBBvggdH1CoI');
 var bodyParser = require('body-parser')

@@ -1,17 +1,14 @@
+
 {
   "name"         : "todo",
-  "version"      : "1.0.0",
+  "version"      : "0.0.1",
   "private"      : true,
-  "author": "",
-  "license": "ISC",
   "dependencies" : {
     "express"    : "*",
     "mongodb" 	 : "*",
     "md5"        : "^2.0.0",
-	"moment"  : "*",
-	"body-parser": "*",
-    "fcm": "*",
-    "fcm-node": "*",
-    "node-fcm": "*"
+    "gcm4node"   : "*",
+    "node-gcm"   : "*",
+	"moment"  : "*"
   }
 }

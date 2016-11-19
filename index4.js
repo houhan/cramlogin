@@ -3,11 +3,11 @@ var mongodb = require('mongodb');
 var ObjectID = require('mongodb').ObjectID;
 var app = express();
 var md5 = require('md5');
-
+/*
 var FCM = require('fcm-node');
 var fcm = new FCM('AIzaSyDn9S-x9r31Ub3ns_VZnBBEBBvggdH1CoI');
 var bodyParser = require('body-parser')
-
+*/
 var mongodbURL = 'mongodb://houhan:ag460360@ds029745.mlab.com:29745/dbforaccount';
 
 var myDB;
@@ -19,8 +19,6 @@ mongodb.MongoClient.connect(mongodbURL, function(err, db) {
 		console.log('connection success');
 	}
 });
-
-
 
 
 //將帳號、密碼、名稱存入login資料庫

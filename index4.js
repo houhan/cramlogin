@@ -62,7 +62,7 @@ app.get('/api/insertRegId', function(request, response) {
 	var items = myDB.collection('login');
 	var user = request.query.user;
 	var regid = request.query.regid;
-	console.log('testLog');
+	//console.log('testLog');
 	items.update( { 'user':user }, { $set: { 'regid':regid } });
 	response.type('application/json');
 	response.status(200).send("Succeed Save"); 
@@ -170,81 +170,6 @@ app.get('/api/insertbb', function(request, response) {
 	});
 });
 
-//公佈欄刪除 BYmyself
-app.get('/api/deletebill', function(request, response) {
-
-	var collection = myDB.collection('billboard');
-	collection.remove({}).toArray(function(err, docs) {
-		if (err) {
-			response.status(406).send(err).end();
-		} else {
-			response.type('application/json');
-			response.status(200).send(docs).end();
-		}
-	});
-});
-
-app.get('/api/deletebill2', function(request, response) {
-	var items = database.collection('billboard');
-	var date = request.query.date;
-	var title = request.query.title;
-	var content = request.query.content;
-
-	items.remove(
-		{
-			'billboard' : date,
-
-		},
-		{
-			'billboard' :{
-				'id' : id,
-				'date' : date,
-				'title' : title,
-				'content' : content
-			}
-		}
-	);
-
-	response.write('remove_complete');
-	response.end();
-	
-});
-
-//公佈欄刪除
-app.get('/api/deletebillboard', function(request, response) {
-
-	var item = {
-	date: request.query.date,
-	title: request.query.title,
-	content: request.query.content
-	}
-	var collection = myDB.collection('billboard');
-	collection.find({date: request.query.date,title: request.query.title,content: request.query.content} , {_id: 1}).toArray(function(err, docs) {
-		if (err) {
-			response.status(406).send(err).end();
-		} else {
-			response.type('application/json');
-			response.status(200).send(docs).end();
-		}
-	});
-});
-//刪除公佈欄步驟二
-app.get('/api/delete2', function(request, response) {
-	var param = {
-		_id : new ObjectID(request.query.id)
-	}
-	console.log(JSON.stringify(param));
-	var collection = myDB.collection('billboard');
-	collection.remove(param, function(err, result) {
-		if (err) {
-			console.log('response err' + JSON.stringify(err));
-			response.status(406).send(err).end();
-		} else {
-			response.type('application/json');
-			response.status(200).send(result).end();
-		}
-	});
-});
 
 //新增預計抵達時間
 app.get('/api/inserttime', function(request, response) {
@@ -365,13 +290,12 @@ app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Headers", "X-Requested-With");
 	next();
 });
-
+/*
 app.listen(5000, function(){
   console.log('listening on *:5000');
 });
 
-/*
+*/
 app.listen(process.env.PORT || 5000);
 console.log('port ' + (process.env.PORT || 5000));
 
-*/

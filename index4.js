@@ -361,15 +361,13 @@ app.get('/api/querystudentname', function(request, response) {
 	});
 });
 
+/*
 //FCM
-
-
-
 app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
-
+*/
 
 /*
 	post example:
@@ -381,6 +379,8 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 	"message": "This is a message",
 	"title": "這是標題"
 }*/
+
+/*
 app.post('/send', function(req, res) {
 
 	var tokens = req.body.tokens;
@@ -412,6 +412,8 @@ app.post('/send', function(req, res) {
 	});
 
 })
+*/
+
 console.log('testLog');
 app.use(express.static(__dirname + '/public'));
 

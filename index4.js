@@ -3,11 +3,8 @@ var mongodb = require('mongodb');
 var ObjectID = require('mongodb').ObjectID;
 var app = express();
 var md5 = require('md5');
-/*
-var FCM = require('fcm-node');
-var fcm = new FCM('AIzaSyDn9S-x9r31Ub3ns_VZnBBEBBvggdH1CoI');
-var bodyParser = require('body-parser')
-*/
+var gcm = require('node-gcm');
+
 var mongodbURL = 'mongodb://houhan:ag460360@ds029745.mlab.com:29745/dbforaccount';
 
 var myDB;
@@ -65,6 +62,7 @@ app.get('/api/insertRegId', function(request, response) {
 	var items = myDB.collection('login');
 	var user = request.query.user;
 	var regid = request.query.regid;
+	console.log('testLog');
 	items.update( { 'user':user }, { $set: { 'regid':regid } });
 	response.type('application/json');
 	response.status(200).send("Succeed Save"); 
@@ -343,7 +341,6 @@ app.get('/api/insertqk', function(request, response) {
 });
 
 
-
 //名字顯示
 app.get('/api/querystudentname', function(request, response) {
 	var item = {
@@ -361,60 +358,6 @@ app.get('/api/querystudentname', function(request, response) {
 	});
 });
 
-/*
-//FCM
-app.use( bodyParser.json() );
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended: true
-})); 
-*/
-
-/*
-	post example:
-	body type application/json
-	content:
-{
-	"tokens":["fGJju8A-lxY:APA91bFjjebc6PqkBT_UJx8xj7QQgJ5CJGStm4ZcRAH8OqwXVy3Yf3IlbIdutB35M3Fhj-t-Zmwolqv2k_YWX83O50Kzqxd9Gca7gQ6MhlRgPM4cehSmBgFyQeWWv3139qbfb57SxU-m",
-	"fGJju8A-lxY:APA91bFjjebc6PqkBT_UJx8xj7QQgJ5CJGStm4ZcRAH8OqwXVy3Yf3IlbIdutB35M3Fhj-t-Zmwolqv2k_YWX83O50Kzqxd9Gca7gQ6MhlRgPM4cehSmBgFyQeWWv3139qbfb57SxU-m"],
-	"message": "This is a message",
-	"title": "這是標題"
-}*/
-
-/*
-app.post('/send', function(req, res) {
-
-	var tokens = req.body.tokens;
-	var msg = req.body.message;
-	var title = req.body.title;
-
-	console.log(tokens);
-
-
-	//console.log('token ' + req.params.token);
-
-	var message = {
-	    registration_ids: tokens, // required
-	    data: {
-	    	subject: title,
-	    	message: msg
-		}
-	};
-
-	fcm.send(message, function(err, messageId){
-	    if (err) {
-	        console.log("Something has gone wrong!");
-	        console.error(err);
-	        res.status(500).send(JSON.stringify(err));
-	    } else {
-	        console.log("Sent with message ID: ", messageId);
-	        res.status(200).send('OK');
-	    }
-	});
-
-})
-*/
-
-console.log('testLog');
 app.use(express.static(__dirname + '/public'));
 
 app.use(function(req, res, next) {
@@ -426,6 +369,4 @@ app.use(function(req, res, next) {
 
 app.listen(process.env.PORT || 5000);
 console.log('port ' + (process.env.PORT || 5000));
-
-
 

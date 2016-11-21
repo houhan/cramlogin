@@ -10,12 +10,13 @@ var mongodbURL = 'mongodb://houhan:ag460360@ds029745.mlab.com:29745/dbforaccount
 var myDB;
 mongodb.MongoClient.connect(mongodbURL, function(err, db) {
 	if (err) {
-		console.log('connect mongo db error' + err);
+		console.log(err);
 	} else {
 		myDB = db;
 		console.log('connection success');
 	}
 });
+
 
 //將帳號、密碼、名稱存入login資料庫
 app.get('/api/insert', function(request, response) {
@@ -61,14 +62,13 @@ app.get('/api/insertRegId', function(request, response) {
 	var items = myDB.collection('login');
 	var user = request.query.user;
 	var regid = request.query.regid;
-	//console.log('testLog');
+	console.log('testLog');
 	items.update( { 'user':user }, { $set: { 'regid':regid } });
 	response.type('application/json');
 	response.status(200).send("Succeed Save"); 
 	response.end();
 
 });
-
 
 //回傳密碼比對，若成功登入將UID、名稱紀錄起來
 app.get('/api/query', function(request, response) {
@@ -92,7 +92,6 @@ app.get('/api/query', function(request, response) {
 }); 
 
 //檢查帳號
-
 app.get('/api/checkaccount', function(request, response) {
 	var item = {
 	 user : request.query.user
@@ -169,13 +168,29 @@ app.get('/api/insertbb', function(request, response) {
 	});
 });
 
+
 //公佈欄刪除
-app.get('/api/deletebill', function(request, response) {
+app.get('/api/deletebillboard', function(request, response) {
+
+	var item = {
+	date: request.query.date,
+	title: request.query.title,
+	content: request.query.content
+	}
+	var collection = myDB.collection('billboard');
+	collection.find({date: request.query.date,title: request.query.title,content: request.query.content} , {_id: 1}).toArray(function(err, docs) {
+		if (err) {
+			response.status(406).send(err).end();
+		} else {
+			response.type('application/json');
+			response.status(200).send(docs).end();
+		}
+	});
+});
+//刪除公佈欄步驟二
+app.get('/api/delete2', function(request, response) {
 	var param = {
 		_id : new ObjectID(request.query.id)
-		date : request.query.date,
-		title : request.query.title,
-		content : request.query.content,
 	}
 	console.log(JSON.stringify(param));
 	var collection = myDB.collection('billboard');
@@ -233,7 +248,7 @@ app.get('/api/insertqk', function(request, response) {
 	name : request.query.name,
 	date : request.query.date,
 	reson : request.query.reson,
-	ps : request.query.ps,
+	PS : request.query.PS,
 	}
 	var collection = myDB.collection('qk');
 	collection.insert(item, function(err, result) {
@@ -252,7 +267,7 @@ app.get('/api/queryqk', function(request, response) {
 	name : request.query.name,
 	date : request.query.date,
 	reson : request.query.reson,
-	ps : request.query.ps,
+	PS : request.query.PS,
 	}
 	
 	var collection = myDB.collection('qk');
@@ -285,6 +300,7 @@ app.get('/api/insertqk', function(request, response) {
 });
 
 
+
 //名字顯示
 app.get('/api/querystudentname', function(request, response) {
 	var item = {
@@ -302,6 +318,7 @@ app.get('/api/querystudentname', function(request, response) {
 	});
 });
 
+
 app.use(express.static(__dirname + '/public'));
 
 app.use(function(req, res, next) {
@@ -309,11 +326,7 @@ app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Headers", "X-Requested-With");
 	next();
 });
-/*
-app.listen(5000, function(){
-  console.log('listening on *:5000');
-});
 
-*/
+
 app.listen(process.env.PORT || 5000);
-//console.log('port ' + (process.env.PORT || 5000));
+console.log('port ' + (process.env.PORT || 5000));

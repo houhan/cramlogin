@@ -144,12 +144,6 @@ app.get('/api/checkaccount', function(request, response) {
 
 //公佈欄顯示
 app.get('/api/querybillboard', function(request, response) {
-	var item = {
-	date : request.query.date,
-	title : request.query.title,
-	content : request.query.content,
-	_id : new ObjectID(request.query.id)
-	}
 	var collection = myDB.collection('billboard');
 	collection.find({}).toArray(function(err, docs) {
 		if (err) {

@@ -176,7 +176,7 @@ app.get('/api/deletebill', function(request, response) {
 		_id : new ObjectID(request.query.id)
 	}
 	console.log(JSON.stringify(param));
-	var collection = myDB.collection('Todos');
+	var collection = myDB.collection('billboard');
 	collection.remove(param, function(err, result) {
 		if (err) {
 			console.log('response err' + JSON.stringify(err));

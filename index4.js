@@ -187,23 +187,6 @@ app.get('/api/deletebillboard', function(request, response) {
 		}
 	});
 });
-//刪除公佈欄步驟二
-app.get('/api/delete2', function(request, response) {
-	var param = {
-		_id : new ObjectID(request.query.id)
-	}
-	console.log(JSON.stringify(param));
-	var collection = myDB.collection('billboard');
-	collection.remove(param, function(err, result) {
-		if (err) {
-			console.log('response err' + JSON.stringify(err));
-			response.status(406).send(err).end();
-		} else {
-			response.type('application/json');
-			response.status(200).send(result).end();
-		}
-	});
-});
 
 //新增預計抵達時間
 app.get('/api/inserttime', function(request, response) {
@@ -278,7 +261,7 @@ app.get('/api/queryqk', function(request, response) {
 			response.type('application/json');
 			response.status(200).send(docs).end();
 		}
-	ser});
+	});
 }); 
 
 //新增課程表

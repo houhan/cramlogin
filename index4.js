@@ -170,6 +170,26 @@ app.get('/api/insertbb', function(request, response) {
 	});
 });
 
+//公佈欄刪除
+app.get('/api/deletebill', function(request, response) {
+	var param = {
+		_id : new ObjectID(request.query.id)
+		date : request.query.date,
+		title : request.query.title,
+		content : request.query.content,
+	}
+	console.log(JSON.stringify(param));
+	var collection = myDB.collection('billboard');
+	collection.remove(param, function(err, result) {
+		if (err) {
+			console.log('response err' + JSON.stringify(err));
+			response.status(406).send(err).end();
+		} else {
+			response.type('application/json');
+			response.status(200).send(result).end();
+		}
+	});
+});
 
 //新增預計抵達時間
 app.get('/api/inserttime', function(request, response) {

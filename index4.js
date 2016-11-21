@@ -140,6 +140,7 @@ app.get('/api/querybillboard', function(request, response) {
 	date : request.query.date,
 	title : request.query.title,
 	content : request.query.content,
+	_id : new ObjectID(request.query.id)
 	}
 	var collection = myDB.collection('billboard');
 	collection.find({}).toArray(function(err, docs) {

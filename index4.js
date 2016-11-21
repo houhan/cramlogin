@@ -10,13 +10,12 @@ var mongodbURL = 'mongodb://houhan:ag460360@ds029745.mlab.com:29745/dbforaccount
 var myDB;
 mongodb.MongoClient.connect(mongodbURL, function(err, db) {
 	if (err) {
-		console.log(err);
+		console.log('connect mongo db error' + err);
 	} else {
 		myDB = db;
 		console.log('connection success');
 	}
 });
-
 
 //將帳號、密碼、名稱存入login資料庫
 app.get('/api/insert', function(request, response) {

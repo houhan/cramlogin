@@ -134,13 +134,12 @@ app.get('/api/checkaccount', function(request, response) {
 	});
 });
 
-
 //公佈欄顯示
 app.get('/api/querybillboard', function(request, response) {
 	var item = {
-		date : request.query.date,
-		title : request.query.title,
-		content : request.query.content,
+	date : request.query.date,
+	title : request.query.title,
+	content : request.query.content,
 	}
 	var collection = myDB.collection('billboard');
 	collection.find({}).toArray(function(err, docs) {
@@ -151,7 +150,7 @@ app.get('/api/querybillboard', function(request, response) {
 			response.status(200).send(docs).end();
 		}
 	});
-});
+}); 
 
 //公佈欄新增
 app.get('/api/insertbb', function(request, response) {
@@ -171,6 +170,23 @@ app.get('/api/insertbb', function(request, response) {
 	});
 });
 
+//公佈欄刪除
+app.get('/api/deletebill', function(request, response) {
+	var param = {
+		_id : new ObjectID(request.query.id)
+	}
+	console.log(JSON.stringify(param));
+	var collection = myDB.collection('Todos');
+	collection.remove(param, function(err, result) {
+		if (err) {
+			console.log('response err' + JSON.stringify(err));
+			response.status(406).send(err).end();
+		} else {
+			response.type('application/json');
+			response.status(200).send(result).end();
+		}
+	});
+});
 //新增預計抵達時間
 app.get('/api/inserttime', function(request, response) {
 	var item = {

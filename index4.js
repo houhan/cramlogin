@@ -174,7 +174,7 @@ app.get('/api/insertbb', function(request, response) {
 //公佈欄刪除
 app.get('/api/deletebill', function(request, response) {
 	var param = {
-		_id : new ObjectID(request.query.id)
+		_id : new ObjectID(request.query._id)
 	}
 	console.log(JSON.stringify(param));
 	var collection = myDB.collection('billboard');

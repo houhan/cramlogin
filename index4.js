@@ -363,10 +363,10 @@ app.get('/api/sendfcm',function(request,response,next){
 		    },
 		    body: JSON.stringify(
 		        {
-				    'regid': regid ,
+				    'to': regid ,
 				    'notification': {
 					    'sound': 'default',
-					    'title': 'FCM',
+					    'title': 'title',
 					    'body': msg
 					}
 				}

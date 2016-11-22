@@ -330,7 +330,9 @@ app.get('/api/sendfcm',function(request,response,next){
 		        'Authorization': 'key=AIzaSyDn9S-x9r31Ub3ns_VZnBBEBBvggdH1CoI'
 		    },
 		    body: JSON.stringify(
-        "body": message,
+		            { "data": {
+						"title": "智慧安心班"
+      },
         "to" : deviceId
       }
 		    )}, function(error, response, body) {
@@ -346,7 +348,7 @@ app.get('/api/sendfcm',function(request,response,next){
 	};
 
 	//'e1rHgv5SzV0:APA91bEkGeVykCK8leZR_5FFZITY840MM0D-rwr5JOnBvsdRd4dHGVr1v9SlxVtryLC7du_XaPC6F40v3HezqNDDkqdxo2F3xSePwiFnNYkCKCo9W6wo01hk2MflLr75qWRIQVoyJYh4'
-	sendMessageToUser(to);
+	sendMessageToUser(to,{ message: '小孩已抵達安親班囉'})
 	
 
 	response.write('Done!');

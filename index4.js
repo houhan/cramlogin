@@ -312,45 +312,13 @@ app.get('/api/querystudentname', function(request, response) {
 	"message": "This is a message",
 	"title": "這是標題"
 }*/
-app.post('/api/sendfcm', function(req, res) {
 
-	var regid = req.body.regid ;
-	var msg = req.body.message;
-	var title = req.body.title;
-
-	console.log(regid );
-
-
-	//console.log('token ' + req.params.token);
-
-	var message = {
-	    registration_ids: regid , // required
-	    data: {
-	    	subject: title,
-	    	message: msg
-		}
-	};
-
-	fcm.send(message, function(err, messageId){
-	    if (err) {
-	        console.log("Something has gone wrong!");
-	        console.error(err);
-	        res.status(500).send(JSON.stringify(err));
-	    } else {
-	        console.log("Sent with message ID: ", messageId);
-	        res.status(200).send('OK');
-	    }
-	});
-
-})
 
 app.get('/api/sendfcm',function(request,response,next){
-	
-	var regid = request.query.regid;
-	var msg = request.query.msg;
-	var title = request.query.title ;
+	var from = request.query.from;
+	var to = request.query.to;
+	var message = request.query.message;	
 
-	//type: message(一般訊息) / team_invite(車隊跟車邀請)
 	var request = require('request');
 
 	function sendMessageToUser(deviceId) {
@@ -363,12 +331,13 @@ app.get('/api/sendfcm',function(request,response,next){
 		    },
 		    body: JSON.stringify(
 		        {
-				    'to': regid ,
+				    'to': deviceId ,
 				    'notification': {
 					    'sound': 'default',
-					    'title': 'title',
-					    'body': msg
-					}
+					    'title': 'HangOutFCM',
+					    'body': message
+					},
+
 				}
 		    )}, function(error, response, body) {
 			    if (error) { 
@@ -390,7 +359,6 @@ app.get('/api/sendfcm',function(request,response,next){
 	response.end();		    	
 		    	
 });	
-
 
 app.use(express.static(__dirname + '/public'));
 

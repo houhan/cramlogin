@@ -330,7 +330,7 @@ app.get('/api/sendfcm',function(request,response,next){
 		        'Authorization': 'key=AIzaSyDn9S-x9r31Ub3ns_VZnBBEBBvggdH1CoI'
 		    },
 		    body: JSON.stringify(
-        "message": message,
+        "body": message,
         "to" : deviceId
       }
 		    )}, function(error, response, body) {

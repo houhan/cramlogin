@@ -329,13 +329,13 @@ app.get('/api/sendfcm',function(request,response,next){
 		        'Content-Type' : ' application/json',
 		        'Authorization': 'key=AIzaSyDn9S-x9r31Ub3ns_VZnBBEBBvggdH1CoI'
 		    },
-		    message: JSON.stringify(
+		    body: JSON.stringify(
 		        {
 				    'to': deviceId ,
 				    'notification': {
 					    'sound': 'default',
 					    'title': '智慧安心班',
-					    'message': message
+					    'body': message
 					},
 
 				}

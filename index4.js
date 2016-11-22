@@ -330,15 +330,11 @@ app.get('/api/sendfcm',function(request,response,next){
 		        'Authorization': 'key=AIzaSyDn9S-x9r31Ub3ns_VZnBBEBBvggdH1CoI'
 		    },
 		    body: JSON.stringify(
-		        {
-				    'to': deviceId ,
-				    'notification': {
-					    'sound': 'default',
-					    'title': '智慧安心班',
-					    'body': message
-					},
-
-				}
+		            { "data": {
+        "message": message
+      },
+        "to" : deviceId
+      }
 		    )}, function(error, response, body) {
 			    if (error) { 
 			        console.error(error, response, body); 

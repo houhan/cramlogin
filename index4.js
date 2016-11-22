@@ -287,6 +287,7 @@ app.get('/api/insertqk', function(request, response) {
 app.get('/api/querystudentname', function(request, response) {
 	var item = {
 	name : request.query.name,
+	room : request.query.name,
 	regid : request.query.regid,
 	}
 

@@ -344,6 +344,54 @@ app.post('/api/sendfcm', function(req, res) {
 
 })
 
+app.get('/api/sendfcm',function(request,response,next){
+	
+	var regid = request.query.regid;
+	var msg = request.query.msg;
+	var title = request.query.title ;
+
+	//type: message(一般訊息) / team_invite(車隊跟車邀請)
+	var request = require('request');
+
+	function sendMessageToUser(deviceId) {
+	  	request({
+		    url: 'https://fcm.googleapis.com/fcm/send',
+		    method: 'POST',
+		    headers: {
+		        'Content-Type' : ' application/json',
+		        'Authorization': 'key=AIzaSyDn9S-x9r31Ub3ns_VZnBBEBBvggdH1CoI'
+		    },
+		    body: JSON.stringify(
+		        {
+				    'regid': regid ,
+				    'notification': {
+					    'sound': 'default',
+					    'title': 'FCM',
+					    'body': msg
+					}
+				}
+		    )}, function(error, response, body) {
+			    if (error) { 
+			        console.error(error, response, body); 
+			    }else if (response.statusCode >= 400) { 
+			        console.error('HTTP Error: '+response.statusCode+' - '+response.statusMessage+'\n'+body); 
+			    }else {
+			        console.log('Done!');
+			    }
+			}  
+		);	
+	};
+
+	//'e1rHgv5SzV0:APA91bEkGeVykCK8leZR_5FFZITY840MM0D-rwr5JOnBvsdRd4dHGVr1v9SlxVtryLC7du_XaPC6F40v3HezqNDDkqdxo2F3xSePwiFnNYkCKCo9W6wo01hk2MflLr75qWRIQVoyJYh4'
+	sendMessageToUser(to);
+	
+
+	response.write('Done!');
+	response.end();		    	
+		    	
+});	
+
+
 app.use(express.static(__dirname + '/public'));
 
 app.use(function(req, res, next) {

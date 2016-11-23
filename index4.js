@@ -334,8 +334,8 @@ app.get('/api/sendfcm',function(request,response,next){
 				    'to': deviceId ,
 				    'notification': {
 					    'sound': 'default',
-					    'title': '123',
-					    'body': message
+					    'title': '智慧安心班',
+					    'body': '小孩已抵達安親班囉！'
 					},
 
 				}

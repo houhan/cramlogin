@@ -333,6 +333,7 @@ app.get('/api/sendfcm',function(request,response,next){
 		        {
 				    'to': deviceId ,
 				    'notification': {
+					    'sound': 'default',
 					    'title': '智慧安心班',
 					    'body': '小孩已抵達安親班囉！'
 					},
@@ -350,8 +351,10 @@ app.get('/api/sendfcm',function(request,response,next){
 		);	
 	};
 
+	//'e1rHgv5SzV0:APA91bEkGeVykCK8leZR_5FFZITY840MM0D-rwr5JOnBvsdRd4dHGVr1v9SlxVtryLC7du_XaPC6F40v3HezqNDDkqdxo2F3xSePwiFnNYkCKCo9W6wo01hk2MflLr75qWRIQVoyJYh4'
 	sendMessageToUser(to);
 	
+
 	response.write('Done!');
 	response.end();		    	
 		    	

@@ -31,7 +31,7 @@ app.get('/api/insert', function(request, response) {
 	var item = {
 		user : request.query.user,
 		name : request.query.name,
-		password : request.query.password
+		password : md5(request.query.password),
 		minor : request.query.minor,
 		room : request.query.room,
 	}
@@ -46,7 +46,24 @@ app.get('/api/insert', function(request, response) {
 	});
 });
 
-
+//將帳號、密碼、名稱存入login資料庫
+app.get('/api/insert2', function(request, response) {
+	var item = {
+		user : request.query.user,
+		name : request.query.name,
+		room : request.query.room,
+		password : md5(request.query.password),
+	}
+	var collection = myDB.collection('login');
+	collection.insert(item, function(err, result) {
+		if (err) {
+			response.status(406).send(err).end();
+		}else {
+			response.type('application/json');
+			response.status(200).send(result).end();
+		}
+	});
+});
 
 //更新RegId
 app.get('/api/insertRegId', function(request, response) {
@@ -68,7 +85,7 @@ app.get('/api/query', function(request, response) {
 	name : request.query.name,
 	room : request.query.room,
 	minor : request.query.minor,
-	password : request.query.password
+	password : md5(request.query.password),
 
 	}
 	

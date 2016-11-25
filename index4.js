@@ -31,7 +31,7 @@ app.get('/api/insert', function(request, response) {
 	var item = {
 		user : request.query.user,
 		name : request.query.name,
-		password : md5(request.query.password),
+		password : request.query.password
 		minor : request.query.minor,
 		room : request.query.room,
 	}
@@ -46,24 +46,7 @@ app.get('/api/insert', function(request, response) {
 	});
 });
 
-//將帳號、密碼、名稱存入login資料庫
-app.get('/api/insert2', function(request, response) {
-	var item = {
-		user : request.query.user,
-		name : request.query.name,
-		room : request.query.room,
-		password : md5(request.query.password),
-	}
-	var collection = myDB.collection('login');
-	collection.insert(item, function(err, result) {
-		if (err) {
-			response.status(406).send(err).end();
-		}else {
-			response.type('application/json');
-			response.status(200).send(result).end();
-		}
-	});
-});
+
 
 //更新RegId
 app.get('/api/insertRegId', function(request, response) {
@@ -85,7 +68,7 @@ app.get('/api/query', function(request, response) {
 	name : request.query.name,
 	room : request.query.room,
 	minor : request.query.minor,
-	password : md5(request.query.password),
+	password : request.query.password
 
 	}
 	
@@ -322,7 +305,7 @@ app.get('/api/sendfcm',function(request,response,next){
 	var body = request.query.body;
 	var request = require('request');
 
-	function sendMessageToUser(deviceId) {
+	function sendMessageToUser(deviceId,message) {
 	  	request({
 		    url: 'https://fcm.googleapis.com/fcm/send',
 		    method: 'POST',
@@ -354,7 +337,7 @@ app.get('/api/sendfcm',function(request,response,next){
 
 	//'e1rHgv5SzV0:APA91bEkGeVykCK8leZR_5FFZITY840MM0D-rwr5JOnBvsdRd4dHGVr1v9SlxVtryLC7du_XaPC6F40v3HezqNDDkqdxo2F3xSePwiFnNYkCKCo9W6wo01hk2MflLr75qWRIQVoyJYh4'
 	sendMessageToUser(to);
-	
+	sendMessageToUser(message);
 
 	response.write('Done!');
 	response.end();		    	

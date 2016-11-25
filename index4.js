@@ -86,6 +86,7 @@ app.get('/api/query', function(request, response) {
 	room : request.query.room,
 	minor : request.query.minor,
 	password : md5(request.query.password),
+
 	}
 	
 	var collection = myDB.collection('login');
@@ -145,7 +146,7 @@ app.get('/api/checkaccount', function(request, response) {
 //公佈欄顯示
 app.get('/api/querybillboard', function(request, response) {
 	var collection = myDB.collection('billboard');
-	collection.find({}).toArray(function(err, docs) {
+	collection.find().sort({datefield: 1}).toArray(function(err, docs) {
 		if (err) {
 			response.status(406).send(err).end();
 		} else {

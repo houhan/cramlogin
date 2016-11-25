@@ -31,7 +31,7 @@ app.get('/api/insert', function(request, response) {
 	var item = {
 		user : request.query.user,
 		name : request.query.name,
-		password : md5(request.query.password),
+		password :request.query.password,
 		minor : request.query.minor,
 		room : request.query.room
 	}
@@ -337,7 +337,8 @@ app.get('/api/sendfcm',function(request,response,next){
 	  { message: 'Hello puf'}
 	);
 	}
-}
+});
+
 
 app.use(express.static(__dirname + '/public'));
 

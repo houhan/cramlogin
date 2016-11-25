@@ -31,7 +31,7 @@ app.get('/api/insert', function(request, response) {
 	var item = {
 		user : request.query.user,
 		name : request.query.name,
-		password :request.query.password,
+		password : request.query.password,
 		minor : request.query.minor,
 		room : request.query.room
 	}
@@ -297,48 +297,54 @@ app.get('/api/querystudentname', function(request, response) {
 }*/
 
 
-
 app.get('/api/sendfcm',function(request,response,next){
 	var from = request.query.from;
 	var to = request.query.to;
 	var message = request.query.message;	
 	var body = request.query.body;
 	var request = require('request');
-	
-	function sendMessageToUser(deviceId, message) {
-	  request({
-		url: 'https://fcm.googleapis.com/fcm/send',
-		method: 'POST',
-		headers: {
-		  'Content-Type' :' application/json',
-		  'Authorization': 'key=AIzaSyDn9S-x9r31Ub3ns_VZnBBEBBvggdH1CoI'
-		},
-		body: JSON.stringify(
-		  { "data": {
-			"message": message
-		  },
-			"to" : deviceId
-		  }
-		)
-	  }, function(error, response, body) {
-		if (error) { 
-		  console.error(error, response, body); 
-		}
-		else if (response.statusCode >= 400) { 
-		  console.error('HTTP Error: '+response.statusCode+' - '+response.statusMessage+'\n'+body); 
-		}
-		else {
-		  console.log('Done!')
-		}
-	  });
 
-	sendMessageToUser(
-	  deviceId,
-	  { message: 'Hello puf'}
-	);
-	}
-});
+	function sendMessageToUser(deviceId){
+	  	request({
+		    url: 'https://fcm.googleapis.com/fcm/send',
+		    method: 'POST',
+		    headers: {
+		        'Content-Type' : ' application/json',
+		        'Authorization': 'key=AIzaSyDn9S-x9r31Ub3ns_VZnBBEBBvggdH1CoI'
+		    },
+		    body: JSON.stringify(
+		        {
+				    'to': deviceId ,
+				    'notification': {
+					    'sound': 'default',
+					    'title': 'HangOutFCM',
+					    'body': message
+					},
+					'data':{
+						'send_from' : from,
+						'send_type' : type,
+					},
+				    'priority' : 'high'
+				}
+		    )}, function(error, response, body) {
+			    if (error) { 
+			        console.error(error, response, body); 
+			    }else if (response.statusCode >= 400) { 
+			        console.error('HTTP Error: '+response.statusCode+' - '+response.statusMessage+'\n'+body); 
+			    }else {
+			        console.log('Done!');
+			    }
+			}  
+		);	
+	};
 
+	//'e1rHgv5SzV0:APA91bEkGeVykCK8leZR_5FFZITY840MM0D-rwr5JOnBvsdRd4dHGVr1v9SlxVtryLC7du_XaPC6F40v3HezqNDDkqdxo2F3xSePwiFnNYkCKCo9W6wo01hk2MflLr75qWRIQVoyJYh4'
+	sendMessageToUser(to);
+
+	response.write('Done!');
+	response.end();		    	
+		    	
+});	
 
 app.use(express.static(__dirname + '/public'));
 

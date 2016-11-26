@@ -65,9 +65,9 @@ app.get('/api/insertRegId', function(request, response) {
 app.get('/api/insertstatus', function(request, response) {
 	var items = myDB.collection('login');
 	var regid = request.query.regid;
-	var status = request.query.status;
+	var sstatus = request.query.sstatus;
 	console.log('testLog');
-	items.update( { 'regid':regid }, { $set: { 'status':status} });
+	items.update( { 'regid':regid }, { $set: { 'sstatus':sstatus} });
 	response.type('application/json');
 	response.status(200).send("Succeed Save"); 
 	response.end();

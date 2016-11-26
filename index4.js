@@ -33,7 +33,7 @@ app.get('/api/insert', function(request, response) {
 		password : request.query.password,
 		minor : request.query.minor,
 		room : request.query.room,
-		status: request.query.status
+		sstatus: request.query.sstatus
 	}
 	var collection = myDB.collection('login');
 	collection.insert(item, function(err, result) {
@@ -81,11 +81,11 @@ app.get('/api/query', function(request, response) {
 	room : request.query.room,
 	minor : request.query.minor,
 	password : request.query.password,
-	status: request.query.status
+	sstatus: request.query.sstatus
 	}
 	
 	var collection = myDB.collection('login');
-	collection.find({user : request.query.user}, {password: 1, _id: 1, name:1, minor:1 , room:1, user:1, status:1}).toArray(function(err, docs) {
+	collection.find({user : request.query.user}, {password: 1, _id: 1, name:1, minor:1 , room:1, user:1, sstatus:1}).toArray(function(err, docs) {
 		if (err) {
 			response.status(406).send(err).end();
 		} else {

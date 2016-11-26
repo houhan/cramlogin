@@ -2,7 +2,6 @@ var express = require('express');
 var mongodb = require('mongodb');
 var ObjectID = require('mongodb').ObjectID;
 var app = express();
-var md5 = require('md5');
 var gcm = require('node-gcm');
 var FCM = require('fcm-node');
 var fcm = new FCM('AIzaSyDn9S-x9r31Ub3ns_VZnBBEBBvggdH1CoI');
@@ -33,7 +32,8 @@ app.get('/api/insert', function(request, response) {
 		name : request.query.name,
 		password : request.query.password,
 		minor : request.query.minor,
-		room : request.query.room
+		room : request.query.room,
+		status: request.query.status
 	}
 	var collection = myDB.collection('login');
 	collection.insert(item, function(err, result) {
@@ -67,11 +67,12 @@ app.get('/api/query', function(request, response) {
 	name : request.query.name,
 	room : request.query.room,
 	minor : request.query.minor,
-	password : request.query.password
+	password : request.query.password,
+	status: request.query.status
 	}
 	
 	var collection = myDB.collection('login');
-	collection.find({user : request.query.user}, {password: 1, _id: 1, name:1, minor:1 , room:1, user:1}).toArray(function(err, docs) {
+	collection.find({user : request.query.user}, {password: 1, _id: 1, name:1, minor:1 , room:1, user:1, status:1}).toArray(function(err, docs) {
 		if (err) {
 			response.status(406).send(err).end();
 		} else {

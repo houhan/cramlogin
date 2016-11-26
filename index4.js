@@ -60,6 +60,19 @@ app.get('/api/insertRegId', function(request, response) {
 
 });
 
+
+//更新Status
+app.get('/api/insertstatus', function(request, response) {
+	var items = myDB.collection('login');
+	var regid = request.query.regid;
+	var status = request.query.status;
+	console.log('testLog');
+	items.update( { 'regid':regid }, { $set: { 'status':status} });
+	response.type('application/json');
+	response.status(200).send("Succeed Save"); 
+	response.end();
+
+});
 //回傳密碼比對，若成功登入將UID、名稱紀錄起來
 app.get('/api/query', function(request, response) {
 	var item = {

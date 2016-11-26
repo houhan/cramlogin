@@ -316,7 +316,7 @@ app.get('/api/sendfcm',function(request,response,next){
 					"to" : "cGYuXi61lGE:APA91bGBtCT1JX_-Rr3fQ9v4ED5nmJb-bGSndkHiI_qmwrVBpr8ubNT2W-yVCsVXu2tyk_yFiAPHkQdlvon3z_zkE-5-ZgWxJ7kxBCDEbVtcR7PvIPw8mebjVvCLsoCk6feD4MAP2c07",
 					  "data": {
 						"subject": "智慧安心班",
-						"message": "HELLO"
+						"message": "小孩已到安親班囉！"
 					   }
 	
 				}

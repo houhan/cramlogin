@@ -67,8 +67,7 @@ app.get('/api/query', function(request, response) {
 	name : request.query.name,
 	room : request.query.room,
 	minor : request.query.minor,
-	password : request.query.password,
-
+	password : request.query.password
 	}
 	
 	var collection = myDB.collection('login');
@@ -319,8 +318,7 @@ app.get('/api/sendfcm',function(request,response,next){
 						"subject": "智慧安心班",
 						"message": "HELLO"
 					   }
-		
-				    'priority' : 'high'
+	
 				}
 		    )}, function(error, response, body) {
 			    if (error) { 

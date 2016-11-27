@@ -229,7 +229,7 @@ app.get('/api/insertqk', function(request, response) {
 	name : request.query.name,
 	date : request.query.date,
 	reson : request.query.reson,
-	PS : request.query.PS,
+	ps : request.query.ps,
 	}
 	var collection = myDB.collection('qk');
 	collection.insert(item, function(err, result) {

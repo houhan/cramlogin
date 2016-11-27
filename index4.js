@@ -191,7 +191,7 @@ app.get('/api/inserttime', function(request, response) {
 	var item = {
 	user : request.query.user,
 	time : request.query.time,
-	dis : request.query.dis,
+	dis : request.query.dis
 	}
 	var collection = myDB.collection('arrivetime');
 	collection.insert(item, function(err, result) {
@@ -207,8 +207,9 @@ app.get('/api/inserttime', function(request, response) {
 //顯示預計抵達
 app.get('/api/querytime', function(request, response) {
 	var item = {
-	hours : request.query.hours,
-	min : request.query.min,
+	user : request.query.user,
+	time : request.query.time,
+	dis : request.query.dis
 	}
 	
 	var collection = myDB.collection('arrivetime');
@@ -298,8 +299,22 @@ app.get('/api/querystudentname', function(request, response) {
 	});
 });
 
-
-
+//顯示孩子到班資訊
+app.get('/api/querystudentstatus', function(request, response) {
+	var item = {
+	name : request.query.name,
+	sstatus : request.query.sstatus
+	}
+	var collection = myDB.collection('login');
+	collection.find({name:request.query.name} , {sstause : 1}).toArray(function(err, docs) {
+		if (err) {
+			response.status(406).send(err).end();
+		} else {
+			response.type('application/json');
+			response.status(200).send(docs).end();
+		}
+	});
+});
 /*
 	post example:
 	body type application/json

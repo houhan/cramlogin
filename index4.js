@@ -298,6 +298,8 @@ app.get('/api/querystudentname', function(request, response) {
 	});
 });
 
+
+
 /*
 	post example:
 	body type application/json
@@ -327,7 +329,7 @@ app.get('/api/sendfcm',function(request,response,next){
 		    },
 		    body: JSON.stringify(
 		        {
-					"to" : "cGYuXi61lGE:APA91bGBtCT1JX_-Rr3fQ9v4ED5nmJb-bGSndkHiI_qmwrVBpr8ubNT2W-yVCsVXu2tyk_yFiAPHkQdlvon3z_zkE-5-ZgWxJ7kxBCDEbVtcR7PvIPw8mebjVvCLsoCk6feD4MAP2c07",
+					"to" : deviceId,
 					  "data": {
 						"subject": "智慧安心班",
 						"message": "小孩已到安親班囉！"

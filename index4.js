@@ -306,7 +306,7 @@ app.get('/api/querystudentstatus', function(request, response) {
 	sstatus : request.query.sstatus
 	}
 	var collection = myDB.collection('login');
-	collection.find({name:request.query.name} , {sstause : 1}).toArray(function(err, docs) {
+	collection.find({name:request.query.name} , {sstatus : 1,_id: 0}).toArray(function(err, docs) {
 		if (err) {
 			response.status(406).send(err).end();
 		} else {

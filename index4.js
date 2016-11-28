@@ -411,6 +411,50 @@ app.get('/api/sendfcmgohome',function(request,response,next){
 	response.end();		    	
 		    	
 });	
+
+//發送家長抵達狀況
+app.get('/api/sendfcmarrive',function(request,response,next){
+	var from = request.query.from;
+	var to = request.query.to;
+	var message = request.query.message;	
+	var body = request.query.body;
+	var request = require('request');
+
+	function sendMessageToUser(deviceId){
+	  	request({
+		    url: 'https://fcm.googleapis.com/fcm/send',
+		    method: 'POST',
+		    headers: {
+		        'Content-Type' : ' application/json',
+		        'Authorization': 'key=AIzaSyDn9S-x9r31Ub3ns_VZnBBEBBvggdH1CoI'
+		    },
+		    body: JSON.stringify(
+		        {
+					"to" : deviceId,
+					  "data": {
+						"subject": "智慧安心班",
+						"message": message
+					   }
+	
+				}
+		    )}, function(error, response, body) {
+			    if (error) { 
+			        console.error(error, response, body); 
+			    }else if (response.statusCode >= 400) { 
+			        console.error('HTTP Error: '+response.statusCode+' - '+response.statusMessage+'\n'+body); 
+			    }else {
+			        console.log('Done!');
+			    }
+			}  
+		);	
+	};
+	sendMessageToUser(to);
+	
+	response.write('Done!');
+	response.end();		    	
+		    	
+});	
+
 app.use(express.static(__dirname + '/public'));
 
 app.use(function(req, res, next) {

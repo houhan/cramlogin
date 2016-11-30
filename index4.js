@@ -269,7 +269,7 @@ app.get('/api/deletebill', function(request, response) {
 		_id : new ObjectID(request.query._id)
 	}
 	console.log(JSON.stringify(param));
-	var collection = myDB.collection('qk');
+	var collection = myDB.collection('billboard');
 	collection.remove(param, function(err, result) {
 		if (err) {
 			console.log('response err' + JSON.stringify(err));
@@ -484,7 +484,7 @@ app.get('/api/sendfcmgohome2',function(request,response,next){
 		    },
 		    body: JSON.stringify(
 		        {
-					"to" : "cGQhhi_Nln8:APA91bGXg63oRirYWDZPWz_A0cRtTsHSCsx0I3tSelFf3kepsAyVBQTWTCsER1zMSSyrcQBt5zd-SAQ0p8j8n32VI9TTd9R9tEZtJWduPtrvIUrQJeVVpZ7B_7jWlK1RKLEojMm3E8Ox",
+					"to" : "dh8BlEL1awI:APA91bFe0tg951Z1WdU2CtAn9dzpmveZebgFGKh0KG1RzlxJve7czYGrhwDHGLTJhiyjL0Wp4xUiEiglGb67Vz-YjRwArnM_nP7Oc189L2DrjbRvUEWELdsa3RNlkDS3ZVGkJLKgbrcm",
 					  "data": {
 						"subject": "智慧安心班",
 						"message": message

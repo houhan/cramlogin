@@ -74,18 +74,6 @@ app.get('/api/insertstatus', function(request, response) {
 
 });
 
-//更新Status為未到達
-app.get('/api/updatestatus', function(request, response) {
-	var items = myDB.collection('login');
-	var regid = request.query.regid;
-	var sstatus = request.query.sstatus;
-	console.log('testLog');
-	items.update({sstatus:"孩子尚未抵達安親班唷"});
-	response.type('application/json');
-	response.status(200).send("Succeed Save"); 
-	response.end();
-
-});
 //回傳密碼比對，若成功登入將UID、名稱紀錄起來
 app.get('/api/query', function(request, response) {
 	var item = {

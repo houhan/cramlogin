@@ -263,6 +263,24 @@ app.get('/api/queryqk', function(request, response) {
 	});
 }); 
 
+//請假單刪除
+app.get('/api/deletebill', function(request, response) {
+	var param = {
+		_id : new ObjectID(request.query._id)
+	}
+	console.log(JSON.stringify(param));
+	var collection = myDB.collection('qk');
+	collection.remove(param, function(err, result) {
+		if (err) {
+			console.log('response err' + JSON.stringify(err));
+			response.status(406).send(err).end();
+		} else {
+			response.type('application/json');
+			response.status(200).send(result).end();
+		}
+	});
+});
+
 //新增課程表
 app.get('/api/insertqk', function(request, response) {
 	var item = {
@@ -316,16 +334,7 @@ app.get('/api/querystudentstatus', function(request, response) {
 		}
 	});
 });
-/*
-	post example:
-	body type application/json
-	content:
-{
-	"tokens":["fGJju8A-lxY:APA91bFjjebc6PqkBT_UJx8xj7QQgJ5CJGStm4ZcRAH8OqwXVy3Yf3IlbIdutB35M3Fhj-t-Zmwolqv2k_YWX83O50Kzqxd9Gca7gQ6MhlRgPM4cehSmBgFyQeWWv3139qbfb57SxU-m",
-	"fGJju8A-lxY:APA91bFjjebc6PqkBT_UJx8xj7QQgJ5CJGStm4ZcRAH8OqwXVy3Yf3IlbIdutB35M3Fhj-t-Zmwolqv2k_YWX83O50Kzqxd9Gca7gQ6MhlRgPM4cehSmBgFyQeWWv3139qbfb57SxU-m"],
-	"message": "This is a message",
-	"title": "這是標題"
-}*/
+
 
 //發送小孩抵達通知
 app.get('/api/sendfcm',function(request,response,next){
@@ -410,7 +419,7 @@ app.get('/api/sendfcmgohome',function(request,response,next){
 	
 	response.write('Done!');
 	response.end();		    	
-		    	
+	    	
 });	
 
 //發送家長抵達狀況
@@ -456,6 +465,49 @@ app.get('/api/sendfcmarrive',function(request,response,next){
 		    	
 });	
 
+
+//發送抵達時間給老師 寫好ID
+app.get('/api/sendfcmgohome2',function(request,response,next){
+	var from = request.query.from;
+	var to = request.query.to;
+	var message = request.query.message;	
+	var body = request.query.body;
+	var request = require('request');
+
+	function sendMessageToUser(deviceId){
+	  	request({
+		    url: 'https://fcm.googleapis.com/fcm/send',
+		    method: 'POST',
+		    headers: {
+		        'Content-Type' : ' application/json',
+		        'Authorization': 'key=AIzaSyDn9S-x9r31Ub3ns_VZnBBEBBvggdH1CoI'
+		    },
+		    body: JSON.stringify(
+		        {
+					"to" : "cGQhhi_Nln8:APA91bGXg63oRirYWDZPWz_A0cRtTsHSCsx0I3tSelFf3kepsAyVBQTWTCsER1zMSSyrcQBt5zd-SAQ0p8j8n32VI9TTd9R9tEZtJWduPtrvIUrQJeVVpZ7B_7jWlK1RKLEojMm3E8Ox",
+					  "data": {
+						"subject": "智慧安心班",
+						"message": message
+					   }
+	
+				}
+		    )}, function(error, response, body) {
+			    if (error) { 
+			        console.error(error, response, body); 
+			    }else if (response.statusCode >= 400) { 
+			        console.error('HTTP Error: '+response.statusCode+' - '+response.statusMessage+'\n'+body); 
+			    }else {
+			        console.log('Done!');
+			    }
+			}  
+		);	
+	};
+	sendMessageToUser(to);
+	
+	response.write('Done!');
+	response.end();		    	
+	    	
+});	
 app.use(express.static(__dirname + '/public'));
 
 app.use(function(req, res, next) {

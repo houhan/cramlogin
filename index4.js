@@ -80,7 +80,7 @@ app.get('/api/updatestatus', function(request, response) {
 	var regid = request.query.regid;
 	var sstatus = request.query.sstatus;
 	console.log('testLog');
-	items.update({ $set: { 'sstatus':"孩子尚未抵達安親班唷"} });
+	items.update({sstatus:"孩子尚未抵達安親班唷"} });
 	response.type('application/json');
 	response.status(200).send("Succeed Save"); 
 	response.end();

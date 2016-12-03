@@ -264,12 +264,12 @@ app.get('/api/queryqk', function(request, response) {
 }); 
 
 //請假單刪除
-app.get('/api/deletebill', function(request, response) {
+app.get('/api/deleteqk', function(request, response) {
 	var param = {
 		_id : new ObjectID(request.query._id)
 	}
 	console.log(JSON.stringify(param));
-	var collection = myDB.collection('billboard');
+	var collection = myDB.collection('qk');
 	collection.remove(param, function(err, result) {
 		if (err) {
 			console.log('response err' + JSON.stringify(err));

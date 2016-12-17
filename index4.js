@@ -66,10 +66,10 @@ app.get('/api/insertRegId', function(request, response) {
 //更新Status
 app.get('/api/insertstatus', function(request, response) {
 	var items = myDB.collection('login');
-	var name = request.query.name;
+	var minor = request.query.minor;
 	var sstatus = request.query.sstatus;
 	console.log('testLog');
-	items.update( { 'name':name }, { $set: { 'sstatus':sstatus} });
+	items.update( { 'minor':minor}, { $set: { 'sstatus':sstatus} });
 	response.type('application/json');
 	response.status(200).send("Succeed Save"); 
 	response.end();

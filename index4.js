@@ -33,7 +33,9 @@ app.get('/api/insert', function(request, response) {
 		password : request.query.password,
 		minor : request.query.minor,
 		room : request.query.room,
+		regid : request.query.regid,
 		sstatus: request.query.sstatus
+		
 	}
 	var collection = myDB.collection('login');
 	collection.insert(item, function(err, result) {
